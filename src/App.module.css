@@ -1,0 +1,9 @@
+.appContainer {
+  width: 1280px;
+  padding: 20 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 2rem;
+  text-align: left;
+}

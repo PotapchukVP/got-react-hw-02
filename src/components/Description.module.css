@@ -1,0 +1,13 @@
+.body {
+  color: black;
+  font-family: Helvetica;
+}
+.headDescription {
+  font-size: 34px;
+  font-weight: 800;
+}
+
+.plainDescription {
+  font-size: 20px;
+  font-weight: 500;
+}
