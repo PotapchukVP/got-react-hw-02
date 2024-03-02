@@ -1,18 +1,18 @@
 import css from "../components/Options.module.css";
 
-function Options({ onFeedbackButton, totalFeedback }) {
-  const handleButtonClick = (key) => {
-    onFeedbackButton(key);
-  };
-
+function Options({ onFeedbackButton, totalFeedback, onResetFeedback }) {
+  const isTotalFeedback = totalFeedback !== 0;
   return (
     <div className={css.container}>
-      <button onClick={() => handleButtonClick("good")}>Good</button>
-      <button onClick={() => handleButtonClick("neutral")}>Neutral</button>
-      <button onClick={() => handleButtonClick("bad")}>Bad</button>
-      {totalFeedback && (
-        <button onClick={() => handleButtonClick("bad")}>Reset</button>
-      )}
+      <button onClick={() => onFeedbackButton("good")}>Good</button>
+      <button onClick={() => onFeedbackButton("neutral")}>Neutral</button>
+      <button onClick={() => onFeedbackButton("bad")}>Bad</button>
+      <button
+        style={{ display: isTotalFeedback ? "block" : "none" }}
+        onClick={onResetFeedback}
+      >
+        Reset
+      </button>
     </div>
   );
 }

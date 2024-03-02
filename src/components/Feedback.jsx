@@ -1,17 +1,16 @@
 import css from "./Feedback.module.css";
-import { useEffect } from "react";
 
-function Feedback({ onReview, feedback }) {
+function Feedback({ option, feedback }) {
   const totalFeedback = feedback.totalFeedback;
   const totalRating =
     totalFeedback !== 0
-      ? Math.round(((onReview.good + onReview.neutral) / totalFeedback) * 100)
+      ? Math.round(((option.good + option.neutral) / totalFeedback) * 100)
       : 0;
   return (
     <div className={css.feedbackContainer}>
-      <p>Good: {onReview.good}</p>
-      <p>Neutral: {onReview.neutral}</p>
-      <p>Bad: {onReview.bad}</p>
+      <p>Good: {option.good}</p>
+      <p>Neutral: {option.neutral}</p>
+      <p>Bad: {option.bad}</p>
       <p>Total: {feedback.totalFeedback} </p>
       <p>Positive: {totalRating}</p>
     </div>
