@@ -6,6 +6,7 @@ import Feedback from "../src/components/Feedback.jsx";
 import Notification from "../src/components/Notification.jsx";
 
 function App() {
+  /*
   const [feedback, setFeedback] = useState(() => {
     const savedFeedback = JSON.parse(window.localStorage.getItem("feedback"));
     if (savedFeedback != null) {
@@ -30,23 +31,45 @@ function App() {
       bad: 0,
     };
   });
+  */
+  const [good, setGood] = useState(() => {
+    const savedGood = JSON.parse(window.localStorage.getItem("good"));
+    if (savedGood) return savedGood;
+    return 0;
+  });
+  const [neutral, setNeutral] = useState(() => {
+    const savedNeutral = JSON.parse(window.localStorage.getItem("neutral"));
+    if (savedNeutral) return savedNeutral;
+    return 0;
+  });
+  const [bad, setBad] = useState(() => {
+    const savedBad = JSON.parse(window.localStorage.getItem("bad"));
+    if (savedBad) return savedBad;
+    return 0;
+  });
+  const [total, setTotal] = useState(() => {
+    const savedTotal = JSON.parse(window.localStorage.getItem("total"));
+    if (savedTotal) return savedTotal;
+    return 0;
+  });
 
   useEffect(() => {
-    window.localStorage.setItem("option", JSON.stringify(option));
-    window.localStorage.setItem("feedback", JSON.stringify(feedback));
-  }, [option, feedback]);
-
-  useEffect(() => {
-    const savedOptions = JSON.parse(window.localStorage.getItem("option"));
-    const savedFeedback = JSON.parse(window.localStorage.getItem("feedback"));
-    if (savedOptions && savedFeedback) {
-      setOption(savedOptions);
-      setFeedback(savedFeedback);
-      console.log("Mount option: ", savedOptions);
-    }
-  }, []);
+    window.localStorage.setItem("good", good);
+    window.localStorage.setItem("neutral", neutral);
+    window.localStorage.setItem("bad", bad);
+    window.localStorage.setItem("total", total);
+  }, [good, neutral, bad, total]);
 
   const updateFeedback = (feedbackType) => {
+    if (feedbackType === "good") {
+      setGood(good + 1);
+    } else if (feedbackType === "neutral") {
+      setNeutral(neutral + 1);
+    } else if (feedbackType === "bad") {
+      setBad(bad + 1);
+    }
+    setTotal(total + 1);
+    /*
     console.log("Type of feedback: ", feedbackType);
     setOption({
       ...option,
@@ -55,13 +78,17 @@ function App() {
 
     setFeedback({
       ...feedback,
-      totalFeedback: option.good + option.neutral + option.bad + 1,
+
+      totalFeedback:
+        option.good + option.neutral + option.bad + option[feedbackType] + 1,
       totalRating: Math.round(
         ((option.good + option.neutral) / feedback.totalFeedback) * 100
       ),
     });
+    */
   };
 
+  /*
   const resetTotalFeedback = () => {
     setFeedback({
       totalFeedback: 0,
@@ -74,17 +101,25 @@ function App() {
       bad: 0,
     });
   };
+  */
+  const resetTotalFeedback = () => {
+    setGood(0);
+    setNeutral(0);
+    setBad(0);
+    setTotal(0);
+  };
 
   return (
     <div className={css.appContainer}>
       <Description />
       <Options
         onFeedbackButton={updateFeedback}
-        totalFeedback={feedback.totalFeedback}
+        totalFeedback={total}
         onResetFeedback={resetTotalFeedback}
       />
-      {feedback.totalFeedback ? (
-        <Feedback option={option} feedback={feedback} />
+      {total ? (
+        // <Feedback option={option} feedback={feedback} />
+        <Feedback good={good} neutral={neutral} bad={bad} total={total} />
       ) : (
         <Notification />
       )}

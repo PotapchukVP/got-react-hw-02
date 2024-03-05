@@ -1,17 +1,14 @@
 import css from "./Feedback.module.css";
 
-function Feedback({ option, feedback }) {
-  const totalFeedback = feedback.totalFeedback;
+function Feedback({ good, neutral, bad, total }) {
   const totalRating =
-    totalFeedback !== 0
-      ? Math.round(((option.good + option.neutral) / totalFeedback) * 100)
-      : 0;
+    total !== 0 ? Math.round(((good + neutral) / total) * 100) : 0;
   return (
     <div className={css.feedbackContainer}>
-      <p>Good: {option.good}</p>
-      <p>Neutral: {option.neutral}</p>
-      <p>Bad: {option.bad}</p>
-      <p>Total: {feedback.totalFeedback} </p>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
+      <p>Total: {total} </p>
       <p>Positive: {totalRating}</p>
     </div>
   );
