@@ -69,6 +69,7 @@ function App() {
       setBad(bad + 1);
     }
     setTotal(total + 1);
+
     /*
     console.log("Type of feedback: ", feedbackType);
     setOption({
@@ -87,6 +88,8 @@ function App() {
     });
     */
   };
+  const positiveFeedback =
+    total !== 0 ? Math.round(((good + neutral) / total) * 100) : 0;
 
   /*
   const resetTotalFeedback = () => {
@@ -119,7 +122,13 @@ function App() {
       />
       {total ? (
         // <Feedback option={option} feedback={feedback} />
-        <Feedback good={good} neutral={neutral} bad={bad} total={total} />
+        <Feedback
+          good={good}
+          neutral={neutral}
+          bad={bad}
+          total={total}
+          positiveFeedback={positiveFeedback}
+        />
       ) : (
         <Notification />
       )}
